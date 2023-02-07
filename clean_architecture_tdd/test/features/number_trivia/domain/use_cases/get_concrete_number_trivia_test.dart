@@ -3,10 +3,15 @@ import 'package:clean_architecture_tdd/features/number_trivia/domain/repositorie
 import 'package:clean_architecture_tdd/features/number_trivia/domain/use_cases/get_concrete_number_trivia.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockNumberTriviaRepository extends Mock implements NumberTriviaRepository{}
+import 'get_concrete_number_trivia_test.mocks.dart';
 
+
+/*class MockNumberTriviaRepository extends Mock implements NumberTriviaRepository{}*/
+
+@GenerateMocks([NumberTriviaRepository])
 void main() {
   late GetConcreteNumberTrivia useCase;
   late MockNumberTriviaRepository mockNumberTriviaRepository;

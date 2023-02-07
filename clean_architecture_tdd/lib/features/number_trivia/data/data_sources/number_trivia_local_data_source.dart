@@ -1,8 +1,11 @@
+import 'dart:convert';
 
+import 'package:clean_architecture_tdd/core/error/exceptions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/number_trivia_model.dart';
 
-abstract class NumberTriviaLocalDataSource{
+abstract class NumberTriviaLocalDataSource {
   /// Gets the cached [NumberTriviaModel] which was gotten the last time
   /// the user had an internet connection.
   ///
@@ -11,5 +14,33 @@ abstract class NumberTriviaLocalDataSource{
   Future<NumberTriviaModel> getLastNumberTrivia();
 
   Future<void> cacheNumberTrivia(NumberTriviaModel numberTrivia);
+}
 
+// ignore: constant_identifier_names
+const CACHED_NUMBER_TRIVIA = 'CACHED_NUMBER_TRIVIA';
+
+class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
+  final SharedPreferences sharedPreferences;
+
+  const NumberTriviaLocalDataSourceImpl({
+    required this.sharedPreferences,
+  });
+
+  @override
+  Future<void> cacheNumberTrivia(NumberTriviaModel numberTrivia) async {
+    sharedPreferences.setString(
+      CACHED_NUMBER_TRIVIA,
+      json.encode(numberTrivia.toJson()),
+    );
+  }
+
+  @override
+  Future<NumberTriviaModel> getLastNumberTrivia() async {
+    final jsonString = sharedPreferences.getString(CACHED_NUMBER_TRIVIA);
+    if (jsonString == null) {
+      throw CacheException();
+    } else {
+      return Future.value(NumberTriviaModel.fromJson(json.decode(jsonString)));
+    }
+  }
 }
