@@ -36,7 +36,7 @@ class NumberTriviaRepositoryImpl extends NumberTriviaRepository {
       try {
         final remoteTrivia = await getConcreteOrRandom();
         localDataSource.cacheNumberTrivia(remoteTrivia!);
-        return Right(remoteTrivia!);
+        return Right(remoteTrivia);
       } on ServerException {
         return Left(ServerFailure());
       }

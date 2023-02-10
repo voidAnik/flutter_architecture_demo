@@ -14,3 +14,17 @@ abstract class Failure extends Equatable {
 class ServerFailure extends Failure{}
 
 class CacheFailure extends Failure{}
+
+extension on Failure{
+
+  String getMsg(){
+    switch(runtimeType){
+      case ServerFailure:
+        return "1";
+      case CacheFailure:
+        return "2";
+      default:
+        return "Unexpected";
+    }
+  }
+}

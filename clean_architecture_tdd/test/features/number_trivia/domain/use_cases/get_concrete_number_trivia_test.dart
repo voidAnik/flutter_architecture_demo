@@ -32,7 +32,7 @@ void main() {
       when(mockNumberTriviaRepository.getConcreteNumberTrivia(tNumber))
           .thenAnswer((_) async => const Right(tNumberTrivia));
       // The "act" phase of the test. Call the not-yet-existent method.
-      final result = await useCase(const Params(tNumber));
+      final result = await useCase(const Params(number: tNumber));
       // UseCase should simply return whatever was returned from the Repository
       expect(result, const Right(tNumberTrivia));
       // Verify that the method has been called on the Repository

@@ -42,12 +42,17 @@ dependencies:
   equatable: ^2.0.5
   # Functional programming things
   dartz: ^0.10.1
-  # Remote API
+  # to check internet connection
   internet_connection_checker: ^1.0.0+1
-
+  # Remote API
   http: ^0.13.5
   # Local cache
   shared_preferences: ^2.0.17
+
+  # state management
+  flutter_bloc: ^8.1.2
+  # for bloc testing
+  bloc_test: ^9.1.1
 
 
 dev_dependencies:
